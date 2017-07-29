@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome {{user.name}}<h1>
+
+    <h3><a href='/logout'>Logout</a></h3>
+    
+    <div style='border: 1px solid black; width: 45%; height: 500px; overflow: scroll; display: inline-block'>
+    <h3>Quotable Quotes</h3>
+    
+        {% for quote in normQuotes %}
+            <div style='border: 1px solid black; width: 95%; padding-left: 5px; margin-left:5px'>
+            <p style="color: red">{{quote.quotedBy}}:</p> <p>{{quote.content}}</p>
+            <p>Posted by: <a href='/show/{{quote.owner.id}}'>{{quote.owner.name}}</a></p>
+            <form action='/addFavorite' method="POST">
+                {% csrf_token %}
+                <input type='hidden' name='quoteId' value='{{quote.id}}'>
+                <input type='submit' value='Add to My Favorites'>
+            </form>
+            </div><br>
+        {% endfor %}
+    </div>
+    <div style='border: 1px solid black; width: 45%; height: 500px; overflow: scroll; display: inline-block'>
+    <h3>Your Favorite Quotes:</h3>
+        {% for quote in favQuotes %}
+            <div style='border: 1px solid black; width: 95%; padding-left: 5px; margin-left:5px'>
+            <p style="color: red">{{quote.quotedBy}}:</p> <p>{{quote.content}}</p>
+            <p>Posted by: <a href='/show/{{quote.owner.id}}'>{{quote.owner.name}}</a></p>
+            <form action='/removeFavorite' method="POST">
+                {% csrf_token %}
+                <input type='hidden' name='quoteId' value='{{quote.id}}'>
+                <input type='submit' value='Remove from Favorites'>
+            </form>
+            </div><br>
+        {% endfor %}
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p style='color:red'>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <h3>Contribute a Quote:</h3>
+    <form action='/addQuote' method="POST">
+        {% csrf_token %}
+        Quoted By: <input type='text' name='quotedBy'><br>
+        <br>
+        Message: <input type='text' name='quote'><br>
+        <br>
+        <input type='submit' value='SUBMIT'>
+    </form>
+</body>
+</html>
+

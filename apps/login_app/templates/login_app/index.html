@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotable Quotes</title>
+</head>
+<body>
+    <h1>Please log in to Quotable Quotes</h1>
+    <h3>(If you don't have an account, please register below.)</h3>
+
+    <form action='/login' method="POST">
+        {% csrf_token %}
+        Username (Email Address): <input type='email' name='email' placeholder="Enter your email address"><br>
+        <br>
+        Password: <input type='password' name='password' placeholder="Enter your password"><br>
+        <br>
+        <input type='submit' value = 'Login!'><br>
+        <br>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+            <p style='color:red'>{{message}}</p>
+        {% endfor %}
+    {% endif %}
+    <h1>Register</h1>
+    
+    <form action='/register' method="POST">
+        {% csrf_token %}
+        Name: <input type='text' name='name' placeholder="Enter your name"><br>
+        <br>
+        Alias: <input type='text' name='alias' placeholder="Enter your nickname"><br>
+        <br>
+        Email Address: <input type='email' name='email' placeholder="Enter your email address"><br>
+        <br>
+        Password: <input type='password' name='password' placeholder="Create a password"><br>
+        <p>*Password should be at least 8 characters.</p>
+        <br>
+        Confirm Password: <input type='password' name='confirmpw' placeholder="Re-type your password"><br>
+        <br>
+        Date of Birth: <input type='date' name='dob'>
+        <p>You must be 18 years old to use this site.</p>
+        <input type='submit' value = 'Register!'><br>
+        <br>
+    </form>
+</body>
+</html>
+

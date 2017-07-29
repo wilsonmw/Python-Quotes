@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quotes!</title>
+</head>
+<body>
+    <h1>Posts by {{ownerOfQuote.name}}</h1>
+    <h2>Count: {{count}}</h2>
+
+    {% for quote in quotes %}
+            <div style='border: 1px solid black; width: 40%'>
+            <p style="color: red">{{quote.quotedBy}}:</p> <p>{{quote.content}}</p>
+            </div><br>
+        {% endfor %}
+
+    <h3><a href='/home'>Dashboard</a></h3>
+    <h3><a href='/logout'>Logout</a></h3>
+</body>
+</html>
+
